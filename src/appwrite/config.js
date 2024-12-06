@@ -42,6 +42,7 @@ export class Service{
             return await this.databases.updateDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
+                //slug as doc id to find the targeted document/post
                 slug,
                 {
                     title,
