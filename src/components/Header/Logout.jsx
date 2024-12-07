@@ -15,7 +15,7 @@ function Logout() {
       onClick={logoutHandler}
     >
       Logout
-    </div>
+    </div> 
   );
 }
 

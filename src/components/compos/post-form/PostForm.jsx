@@ -17,7 +17,7 @@ export default function PostForm({post})
                 title:post?.title || '',
                 slug: post?.slug || '',
                 content: post?.content || '',
-                content: post?.status || 'active'
+                status: post?.status || 'active'
             }
         }
     );
