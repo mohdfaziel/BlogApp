@@ -14,6 +14,7 @@ export class Service{
         this.bucket = new Storage(this.client);
     }
 
+    // Returns the created document object from Appwrite.
     async createPost({title,slug,content,featuredImage,status,userId})
     {
         try{
@@ -36,6 +37,7 @@ export class Service{
         }
     }
 
+    // Returns the updated document object from Appwrite.
     async updatePost(slug,{title,content,featuredImage,status})
     {
         try{
@@ -57,6 +59,7 @@ export class Service{
         }
     }
 
+    // Returns true after the document is successfully deleted.
     async deletePost(slug)
     {
         try{
@@ -71,7 +74,7 @@ export class Service{
             return false;
         }
     }
-
+    // Returns the document object if the document with the given slug exists. else false
     async getPost(slug)
     {
         try{
@@ -86,6 +89,7 @@ export class Service{
         }
     }
 
+    // Returns an object containing an array of documents matching the query.
     //here status is index thats why we can query on it
     async getPosts(queries = [Query.equal('status','active')])
     {
@@ -102,6 +106,7 @@ export class Service{
     }
 
     //File upload service
+    // Returns the uploaded file object.
     async uploadFile(file)
     {
         try{
@@ -117,6 +122,7 @@ export class Service{
     }
 
     //Delete file 
+    // Returns true after successfully deleting the file
     async deleteFile(fileId)
     {
         try{
@@ -132,6 +138,7 @@ export class Service{
     }
 
     //get preview of the file
+    // Returns a URL to preview the file.
     getFilePreview(fileId)
     {
         return this.bucket.getFilePreview(conf.appwriteBucketId,fileId)
