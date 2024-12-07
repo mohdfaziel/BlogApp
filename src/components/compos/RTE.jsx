@@ -3,6 +3,7 @@ import { Editor } from "@tinymce/tinymce-react";
 //like ref used to get ref of input fields IIly Controller from hook forms help to achieve same functionality
 import { Controller } from "react-hook-form";
 import { isFulfilled } from "@reduxjs/toolkit";
+import conf from "../../conf/conf";
 //here control is the main hero
 export default function RTE({ name, control, label, defaultValue = "" }) {
   return (
@@ -17,6 +18,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
         render={({ field: { onChange } }) => (
           //here is the input field which we want to render it can be an input field, editor etc
           <Editor
+            apiKey={conf.editorKey}
             initialValue={defaultValue}
             init={{
                 //these are the features and properties which will be present in out editor
