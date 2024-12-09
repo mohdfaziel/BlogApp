@@ -25,7 +25,7 @@ function App() {
       });
   }, []);
   return loading ? null : (
-    <div className="w-full flex flex-col bg-gray-400">
+    <div className="w-full flex flex-col overflow-hidden bg-gray-400">
       <Header />
       <Outlet />
       <Footer />
