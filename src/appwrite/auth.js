@@ -25,6 +25,7 @@ export class AuthService{
             console.log("Appwrite service failed: signup :"+ error);
         }
     }
+
     //Login
     async login({email,password}){
         try{

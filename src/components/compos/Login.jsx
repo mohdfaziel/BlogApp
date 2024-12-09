@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login as reduxLogin } from "../../store/features/authSlice.js";
-import { Input, Button, Logo } from "../index.js";
 import { useDispatch } from "react-redux";
+import { Input, Button, Logo } from "../index.js";
 import authService from "../../appwrite/auth.js";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import Lottie from "lottie-react";
-import { ldr, lgn } from "../../assets/images.js";
+import {lgn } from "../../assets/images.js";
 import Loader from "./Loader.jsx";
 
 function Login() {
