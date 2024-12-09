@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import appwriteService from "../appwrite/config";
 import { PostCard } from "../components/index";
 import Lottie from "lottie-react";
-import { ldr, lgn } from "../assets/images.js";
+import { lgn, home } from "../assets/images.js";
 import toast from "react-hot-toast";
 import Loader from "../components/compos/Loader.jsx";
 function Home() {
@@ -29,7 +29,7 @@ function Home() {
 
   if (loader)
     return (
-      <div className="Home w-full h-screen flex justify-center px-6 py-2 items-center">
+      <div className="Home w-full min-h-screen flex justify-center px-6 py-2 items-center">
         <div className="container text-center w-full flex justify-center items-center flex-col">
           <Loader/>
         </div>
@@ -37,16 +37,16 @@ function Home() {
     );
   if (posts.length === 0) {
     return (
-      <div className="Home w-full h-screen flex justify-center px-6 py-2 items-center">
+      <div className="Home w-full min-h-screen flex justify-center px-6 py-2 items-center">
         <div className="container text-center w-full flex justify-center items-center flex-col">
-          <Lottie animationData={lgn} />
+          <Lottie animationData={home} />
           <h1 className="text-2xl font-bold">Login to read posts</h1>
         </div>
       </div>
     );
   }
   return (
-    <div className="Home w-full h-screen flex justify-center px-6 py-2 items-center">
+    <div className="Home w-full min-h-screen flex justify-center px-6 mt-[4rem] mb-[1rem] md:mb-0 md:mt-0 py-2 items-center">
       <div className="container gap-5 w-full flex flex-wrap">
         {posts.map((post) => (
           <div key={post.$id} className="w-[25rem] min-h-[10rem] ">

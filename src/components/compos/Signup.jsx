@@ -6,7 +6,7 @@ import { Button, Input, Logo } from "../index.js";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import Lottie from "lottie-react";
-import { ldr } from "../../assets/images.js";
+import { ldr, lgn } from "../../assets/images.js";
 import Loader from "./Loader.jsx";
 
 function Signup() {
@@ -40,10 +40,10 @@ function Signup() {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center w-full">
-      <div className="h-[32rem] w-[30%] flex flex-col justify-center bg-gray-100 rounded-xl px-5 py-3 border border-black/10">
+    <div className="flex h-screen px-4 items-center justify-center w-full">
+      <div className="min-h-[33rem] w-full md:w-[30%] flex flex-col items-center justify-center bg-gray-100 rounded-xl px-5 py-3 border border-black/10">
         {loader ? (
-          <Loader/>
+          <Loader loader={lgn}/>
         ) : (
           <>
             <div className="mb-2 flex justify-center">
@@ -67,7 +67,7 @@ function Signup() {
             {/* Display general error */}
             {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
 
-            <form onSubmit={handleSubmit(create)}>
+            <form onSubmit={handleSubmit(create)} className="w-full">
               <div className="space-y-5">
                 {/* Full Name Input */}
                 <div>

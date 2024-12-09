@@ -7,7 +7,7 @@ import authService from "../../appwrite/auth.js";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Lottie from "lottie-react";
-import { ldr } from "../../assets/images.js";
+import { ldr, lgn } from "../../assets/images.js";
 import Loader from "./Loader.jsx";
 
 function Login() {
@@ -51,23 +51,23 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center h-screen justify-center w-full">
-      <div className="min-h-[29rem] w-[30%] flex flex-col justify-center bg-gray-100 rounded-xl px-5 py-3 border border-black/10">
+    <div className="flex items-center px-4 h-screen justify-center w-full">
+      <div className="min-h-[33rem] w-full md:w-[30%] flex flex-col justify-center items-center bg-gray-100 rounded-xl px-5 py-3 border border-black/10">
         {loader ? (
-          <Loader/>
+          <Loader loader={lgn}/>
         ) : (
           <>
-            <div className="mb-2 flex justify-center">
-              <span className="inline-block w-full max-w-[100px]">
+            <div className="mb-2 w-full text-center flex justify-center items-center">
+              <div>
                 <Logo width="100%" />
-              </span>
+              </div>
             </div>
 
             {/* Title */}
-            <h2 className="text-center text-2xl font-bold leading-tight">
+            <h2 className="text-center w-full text-2xl font-bold leading-tight">
               Sign in to your account
             </h2>
-            <p className="mt-2 text-center text-base text-black/60">
+            <p className="mt-2 w-full text-center text-base text-black/60">
               Don&apos;t have an account?&nbsp;
               <Link
                 to="/signup"
@@ -81,11 +81,12 @@ function Login() {
             {error && <p className="text-red-600 mt-4 text-center">{error}</p>}
 
             {/* Form */}
-            <form onSubmit={handleSubmit(login)} className="mt-8">
-              <div className="space-y-5">
+            <form onSubmit={handleSubmit(login)} className="mt-8 w-full">
+              <div className="w-full space-y-5">
                 {/* Email Input */}
                 <div>
                   <Input
+                  
                     label="Email: "
                     placeholder="Enter your email"
                     type="email"
