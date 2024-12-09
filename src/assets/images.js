@@ -1,2 +1,4 @@
 import logo from './logo.png';
-export {logo};
+import ldr from './loader.json'
+import lgn from './login.json'
+export {logo,ldr,lgn};

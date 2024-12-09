@@ -5,81 +5,133 @@ import { Input, Button, Logo } from "../index.js";
 import { useDispatch } from "react-redux";
 import authService from "../../appwrite/auth.js";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import Lottie from "lottie-react";
+import { ldr } from "../../assets/images.js";
+import Loader from "./Loader.jsx";
+
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  //here register handles some values and handlesubmit calls the function which will be called when form is submitted
-  const { register, handleSubmit } = useForm();
-  const [error, setError] = useState("");
 
-  //here data of form is automatically taken with the help of handlesubmit and passed in the below function
+  // Use react-hook-form for validation and handling
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const [error, setError] = useState("");
+  const [loader, setLoader] = useState(false);
+
+  // Login function: Handle submission and errors
   const login = async (data) => {
-    setError("");
+    setError(""); // Clear previous error states
     try {
+      // Handle successful login
+      setLoader(true);
       const session = await authService.login(data);
       if (session) {
         const userData = await authService.getCurrentUser();
-        if (userData) dispatch(reduxLogin(userData));
-        navigate("/");
+        if (userData) {
+          dispatch(reduxLogin(userData));
+          toast.success("Login Successful!");
+          reset(); // Reset form inputs
+          navigate("/"); // Navigate to home
+        }
       }
-    } catch (error) {
-      setError(error.message);
+    } catch (err) {
+      // Handle any errors during login
+      toast.error("Invalid email or password");
+      setError(err.message || "Something went wrong. Try again.");
+    } finally {
+      setLoader(false);
     }
   };
+
   return (
-    <div className="flex items-center justify-center w-full">
-      <div
-        className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}
-      >
-        <div className="mb-2 flex justify-center">
-          <span className="inline-block w-full max-w-[100px]">
-            <Logo width="100%" />
-          </span>
-        </div>
-        <h2 className="text-center text-2xl font-bold leading-tight">
-          Sign in to your account
-        </h2>
-        <p className="mt-2 text-center text-base text-black/60">
-          Don&apos;t have any account?&nbsp;
-          <Link
-            to="/signup"
-            className="font-medium text-primary transition-all duration-200 hover:underline"
-          >
-            Sign Up
-          </Link>
-        </p>
-        {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
-        <form onSubmit={handleSubmit(login)} className="mt-8">
-          <div className="space-y-5">
-            <Input
-              label="Email: "
-              placeholder="Enter your email"
-              type="email"
-              //this register must have first argument as id, and this id should be unique for every input field
-              {...register("email", {
-                //this means this field is necessary
-                required: true,
-                //here we are comparing the value present in this input field with the regexr pattern obtained from regexr.com, to check whether this is a valid email or not
-                validate: {
-                  matchPatern: (value) =>
-                    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) || //if matching fails then this message will be shown
-                    "Email address must be a valid address",
-                },
-              })}
-            />
-            <Input
-              label="Password: "
-              type="password"
-              placeholder="Enter your password"
-              {...register("password", {
-                required: true,
-              })}
-            />
-            <Button children="Sign in" type="submit" className="w-full"/>
-          </div>
-        </form>
+    <div className="flex items-center h-screen justify-center w-full">
+      <div className="min-h-[29rem] w-[30%] flex flex-col justify-center bg-gray-100 rounded-xl px-5 py-3 border border-black/10">
+        {loader ? (
+          <Loader/>
+        ) : (
+          <>
+            <div className="mb-2 flex justify-center">
+              <span className="inline-block w-full max-w-[100px]">
+                <Logo width="100%" />
+              </span>
+            </div>
+
+            {/* Title */}
+            <h2 className="text-center text-2xl font-bold leading-tight">
+              Sign in to your account
+            </h2>
+            <p className="mt-2 text-center text-base text-black/60">
+              Don&apos;t have an account?&nbsp;
+              <Link
+                to="/signup"
+                className="font-medium text-primary transition-all duration-200 hover:underline"
+              >
+                Sign Up
+              </Link>
+            </p>
+
+            {/* Display general error */}
+            {error && <p className="text-red-600 mt-4 text-center">{error}</p>}
+
+            {/* Form */}
+            <form onSubmit={handleSubmit(login)} className="mt-8">
+              <div className="space-y-5">
+                {/* Email Input */}
+                <div>
+                  <Input
+                    label="Email: "
+                    placeholder="Enter your email"
+                    type="email"
+                    {...register("email", {
+                      required: "Email is required",
+                      validate: {
+                        matchPattern: (value) =>
+                          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
+                            value
+                          ) || "Invalid email format",
+                      },
+                    })}
+                  />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.email.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Password Input */}
+                <div>
+                  <Input
+                    label="Password: "
+                    type="password"
+                    placeholder="Enter your password"
+                    {...register("password", {
+                      required: "Password is required",
+                    })}
+                  />
+                  {errors.password && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.password.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Submit Button */}
+                <Button children="Sign in" type="submit" className="w-full" />
+              </div>
+            </form>
+          </>
+        )}
       </div>
     </div>
   );
 }
+
 export default Login;

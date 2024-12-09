@@ -12,6 +12,7 @@ import Login from './pages/Login.jsx'
 import AddPost from './pages/AddPost.jsx'
 import EditPost from './pages/EditPost.jsx'
 import Post from './pages/Post.jsx'
+import { Toaster } from 'react-hot-toast'
 const router = createBrowserRouter([
   {
     path:"/",
@@ -73,6 +74,7 @@ const router = createBrowserRouter([
 ])
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
+        <Toaster/>
     <RouterProvider router={router}/>
   </Provider>,
 )

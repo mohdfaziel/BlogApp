@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import conf from "../conf/conf";
 import {Client, Account, ID} from "appwrite";
 export class AuthService{
@@ -20,6 +21,7 @@ export class AuthService{
             }
         }catch(error)
         {
+            toast.error(error.message || "Signup failed. Please try again.");
             console.log("Appwrite service failed: signup :"+ error);
         }
     }
@@ -29,6 +31,7 @@ export class AuthService{
            return await this.account.createEmailPasswordSession(email,password);
         }catch(error)
         {
+            toast.error(error.message || "Login failed. Please try again.");
             console.log("Appwrite service failed: login :"+ error);
         }
     }
@@ -45,6 +48,7 @@ export class AuthService{
     async logout(){
         try{
             await this.account.deleteSessions();
+            toast.success("Logout Successfully");
         }catch(error){
             console.log("Appwrite service failed: logout :"+ error);
         }

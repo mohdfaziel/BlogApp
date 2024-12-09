@@ -1,46 +1,61 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from "react";
 import appwriteService from "../appwrite/config";
-import {Container, PostCard} from '../components/index'
-
+import { PostCard } from "../components/index";
+import Lottie from "lottie-react";
+import { ldr, lgn } from "../assets/images.js";
+import toast from "react-hot-toast";
+import Loader from "../components/compos/Loader.jsx";
 function Home() {
-    const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
+  const [loader, setLoader] = useState(false);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      setLoader(true);
+      try {
+        const posts = await appwriteService.getPosts();
+        if (posts) {
+          setPosts(posts.documents);
+        }
+      } catch (error) {
+        toast.error(error.message);
+        console.error("Error fetching posts:", error);
+      } finally {
+        setLoader(false);
+      }
+    };
 
-    useEffect(() => {
-        appwriteService.getPosts().then((posts) => {
-            if (posts) {
-                setPosts(posts.documents)
-            }
-        })
-    }, [])
-  
-    if (posts.length === 0) {
-        return (
-            <div className="w-full py-8 mt-4 text-center">
-                <Container>
-                    <div className="flex flex-wrap">
-                        <div className="p-2 w-full">
-                            <h1 className="text-2xl font-bold hover:text-gray-500">
-                                Login to read posts
-                            </h1>
-                        </div>
-                    </div>
-                </Container>
-            </div>
-        )
-    }
+    fetchPosts();
+  }, []);
+
+  if (loader)
     return (
-        <div className='w-full py-8'>
-            <Container>
-                <div className='flex flex-wrap'>
-                    {posts.map((post) => (
-                        <div key={post.$id} className='p-2 w-1/4'>
-                            <PostCard {...post} />
-                        </div>
-                    ))}
-                </div>
-            </Container>
+      <div className="Home w-full h-screen flex justify-center px-6 py-2 items-center">
+        <div className="container text-center w-full flex justify-center items-center flex-col">
+          <Loader/>
         </div>
-    )
+      </div>
+    );
+  if (posts.length === 0) {
+    return (
+      <div className="Home w-full h-screen flex justify-center px-6 py-2 items-center">
+        <div className="container text-center w-full flex justify-center items-center flex-col">
+          <Lottie animationData={lgn} />
+          <h1 className="text-2xl font-bold">Login to read posts</h1>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="Home w-full h-screen flex justify-center px-6 py-2 items-center">
+      <div className="container gap-5 w-full flex flex-wrap">
+        {posts.map((post) => (
+          <div key={post.$id} className="w-[25rem] min-h-[10rem] ">
+            <PostCard {...post} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
-export default Home
+export default Home;
