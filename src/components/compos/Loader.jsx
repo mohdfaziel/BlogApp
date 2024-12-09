@@ -3,7 +3,7 @@ import { ldr } from '../../assets/images'
 import Lottie from 'lottie-react'
 function Loader({loader = ldr}) {
   return (
-    <div className="w-fit h-fit scale-50">
+    <div className="w-fit h-fit self-center scale-50">
     <Lottie animationData={loader} />
   </div>
   )

@@ -5,7 +5,7 @@ import Lottie from "lottie-react";
 import { lgn, home } from "../assets/images.js";
 import toast from "react-hot-toast";
 import Loader from "../components/compos/Loader.jsx";
-function Home() {
+function Home(){
   const [posts, setPosts] = useState([]);
   const [loader, setLoader] = useState(false);
   useEffect(() => {
@@ -46,8 +46,8 @@ function Home() {
     );
   }
   return (
-    <div className="Home w-full min-h-screen flex justify-center px-6 mt-[4rem] mb-[1rem] md:mb-0 md:mt-0 py-2 items-center">
-      <div className="container gap-5 w-full flex flex-wrap">
+    <div className="Home w-full min-h-screen flex justify-center px-6 mt-[4rem] md:mt-[6rem] mb-[1rem] py-2 items-center">
+      <div className="container gap-5 w-full flex justify-center items-center flex-wrap">
         {posts.map((post) => (
           <div key={post.$id} className="w-[25rem] min-h-[10rem] ">
             <PostCard {...post} />

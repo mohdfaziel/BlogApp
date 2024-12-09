@@ -9,6 +9,7 @@ import LogoutBtn from "./Header/Logout";
 import PostCard from "./compos/PostCard";
 import Button from "./compos/Button.jsx";
 import Signup from "./compos/Signup.jsx";
+import Loader from "./compos/Loader.jsx";
 import AuthLayout from "./compos/AuthLayout";
 import PostForm from "../components/compos/post-form/PostForm.jsx";
 import RTE from "./compos/RTE";
@@ -24,6 +25,7 @@ export {
   LogoutBtn,
   Footer,
   Logo,
+  Loader,
   Select,
   Input,
   Container,

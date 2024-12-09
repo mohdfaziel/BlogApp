@@ -28,9 +28,9 @@ export default function AllPosts()
       fetchPosts();
     }, []);
     return (
-        <div className="Home w-full min-h-screen flex justify-center mt-[4rem] md:mt-0 mb-[1rem] md:mb-0 px-6 py-2 items-center">
+        <div className="Home w-full min-h-screen flex justify-center  mt-[4rem] md:mt-[6rem] mb-[1rem] px-6 py-2 items-center">
                 {loader ? <Loader/> : (
-                    <div className="container gap-5 w-full flex flex-wrap">
+                    <div className="container gap-5 w-full flex justify-center items-center flex-wrap">
                     {posts.map((post) => (
                         <div key={post.$id} className='w-[25rem] min-h-[10rem] '>
                             <PostCard {...post} />
