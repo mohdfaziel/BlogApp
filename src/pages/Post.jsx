@@ -6,13 +6,14 @@ import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 
 export default function Post() {
+  const ADMIN_EMAIL = "mohdfazel969@gmail.com";
   const [post, setPost] = useState(null);
   const { slug } = useParams();
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.auth.userData);
 
-  const isAuthor = post && userData ? post.userId === userData.$id : false;
+  const isAuthor = post && userData ? post.userId === userData.$id || userData.email === ADMIN_EMAIL : false;
 
   useEffect(() => {
     if (slug) {
