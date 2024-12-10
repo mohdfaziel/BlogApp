@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import conf from "../conf/conf";
 import {Client, ID,Databases,Storage,Query} from "appwrite";
 
@@ -33,6 +34,7 @@ export class Service{
 
             )
         }catch(error){
+            toast.error("Title already exists");
             console.log("Appwrite service failed: createPost :"+ error);
         }
     }
