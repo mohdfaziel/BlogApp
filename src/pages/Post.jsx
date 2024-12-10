@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import conf from "../conf/conf.js";
 
 export default function Post() {
-  const ADMIN_EMAIL = conf.admin;
+  const ADMIN_EMAIL = "mohdfazel969@gmail.com";
   const [post, setPost] = useState(null);
   const { slug } = useParams();
   const navigate = useNavigate();
