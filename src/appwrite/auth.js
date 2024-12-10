@@ -49,7 +49,6 @@ export class AuthService{
     async logout(){
         try{
             await this.account.deleteSessions();
-            toast.success("Logout Successfully");
         }catch(error){
             console.log("Appwrite service failed: logout :"+ error);
         }
