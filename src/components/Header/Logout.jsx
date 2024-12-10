@@ -28,7 +28,7 @@ function Logout() {
   };
   return (
     <div
-      className="inline-block border-b-[1px] border-gray-400 text-xl cursor-pointer font-semibold px-6 py-2 duration-200 hover:bg-blue-100 rounded-full"
+      className="inline-block border-b-[1px] border-gray-400 text-lg md:text-xl md:font-semibold cursor-pointer font-medium px-6 py-2 duration-200 hover:bg-blue-100 rounded-full"
       onClick={handleLogout}
     >
       Logout
